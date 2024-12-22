@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def coffee_stats(request):
+    template = 'stats.html'
+    return render(request, template)

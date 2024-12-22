@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def coffee_recommendations(request):
+    template = 'coffee_recommendations.html'
+    return render(request, template)
