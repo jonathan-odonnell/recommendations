@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from .models import CoffeeQuality
 from .forms import CoffeeQualityForm
-import decimal
 
 
 def coffee_recommendations(request):
@@ -21,7 +20,7 @@ def coffee_recommendations_results(request):
         recommendations = CoffeeQuality.objects.filter(
             species=request.POST['species'],
             country=request.POST['country'],
-            year=decimal(request.POST['species']),
+            year=int(request.POST['species']),
             variety=request.POST['colour'],
             colour=request.POST['colour'],
             processing_method=request.POST['processing_method'],
