@@ -1,13 +1,16 @@
 from django.shortcuts import render
 from .models import CoffeeQuality
+from .forms import CoffeeQualityForm
 
 
 def coffee_recommendations(request):
     if request.method == 'POST':
         return
     else:
+        form = CoffeeQualityForm()
         template = 'coffee_recommendations.html'
-        return render(request, template)
+        context = {'form': form}
+        return render(request, template, context)
 
 
 def coffee_recommendations_results(request):
