@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import CoffeeQuality
 from .forms import CoffeeQualityForm
+from decimal import Decimal
 
 
 def coffee_recommendations(request):
@@ -13,27 +14,25 @@ def coffee_recommendations(request):
 def coffee_recommendations_results(request):
     if request.method == 'POST':
         thresholds = {
-            'Low': '0.00_3.33',
-            'Medium': '3.34_6.66',
-            'High': '6.67_10.00',
+            'Low': '0.00_7.33',
+            'Medium': '7.34_7.66',
+            'High': '7.67_10.00',
         }
         recommendations = CoffeeQuality.objects.filter(
-            species=request.POST['species'],
-            country=request.POST['country'],
-            year=int(request.POST['species']),
-            variety=request.POST['colour'],
-            colour=request.POST['colour'],
-            processing_method=request.POST['processing_method'],
-            aroma=thresholds[request.post['aroma']],
-            flavour=thresholds[request.POST['flavour']],
-            aftertaste=thresholds[request.POST['aftertaste']],
-            acidity=thresholds[request.POST['acidity']],
-            body=thresholds[request.POST['body']],
-            balance=thresholds[request.POST['balance']],
-            uniformity=thresholds[request.POST['uniformity']],
-            sweetness=thresholds[request.POST['sweetness']],
-            moisture=thresholds[request.POST['moisture']],
+            aroma__gte=Decimal(thresholds[request.POST['aroma']].split('_')[0]),
+            aroma__lte=Decimal(thresholds[request.POST['aroma']].split('_')[1]),
+            flavour__gte=Decimal(thresholds[request.POST['flavour']].split('_')[0]),
+            flavour__lte=Decimal(thresholds[request.POST['flavour']].split('_')[1]),
+            aftertaste__gte=Decimal(thresholds[request.POST['aftertaste']].split('_')[0]),
+            aftertaste__lte=Decimal(thresholds[request.POST['aftertaste']].split('_')[1]),
+            acidity__gte=Decimal(thresholds[request.POST['acidity']].split('_')[0]),
+            acidity__lte=Decimal(thresholds[request.POST['acidity']].split('_')[1]),
+            body__gte=Decimal(thresholds[request.POST['body']].split('_')[0]),
+            body__lte=Decimal(thresholds[request.POST['body']].split('_')[1]),
+            balance__gte=Decimal(thresholds[request.POST['balance']].split('_')[0]),
+            balance__lte=Decimal(thresholds[request.POST['balance']].split('_')[1]),
         )[:10]
+        print(recommendations)
         template = 'coffee_recommendations_results.html'
         context = {'recommendations': recommendations}
         return render(request, template, context)
