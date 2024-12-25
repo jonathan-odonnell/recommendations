@@ -1,5 +1,6 @@
 from django import forms
 from .models import CoffeeQuality
+from crispy_forms.helper import FormHelper
 
 class CoffeeQualityForm(forms.ModelForm):
 
@@ -31,3 +32,10 @@ class CoffeeQualityForm(forms.ModelForm):
         self.fields['uniformity'] = forms.ChoiceField(choices=categories)
         self.fields['sweetness'] = forms.ChoiceField(choices=categories)
         self.fields['moisture'] = forms.ChoiceField(choices=categories)
+
+        self.helper = FormHelper(self)
+        self.helper.field_class = 'mb-3'
+        self.helper.label_class = 'form-label'
+
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-select'

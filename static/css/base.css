@@ -20,3 +20,7 @@ body .hero-image {
 .hero-image .row {
     z-index: 1;
 }
+
+.asteriskField {
+    display: none;
+}
