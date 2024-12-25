@@ -32,7 +32,6 @@ def coffee_recommendations_results(request):
             balance__gte=Decimal(thresholds[request.POST['balance']].split('_')[0]),
             balance__lte=Decimal(thresholds[request.POST['balance']].split('_')[1]),
         )[:10]
-        print(recommendations)
         template = 'coffee_recommendations_results.html'
         context = {'recommendations': recommendations}
         return render(request, template, context)
