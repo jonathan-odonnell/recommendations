@@ -23,5 +23,5 @@ class CoffeeQuality(models.Model):
     moisture = models.DecimalField(decimal_places=2, max_digits=4, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.species} {self.id}'
 
