@@ -6,5 +6,137 @@
             <h1>Coffee Statistics</h1>
         </div>
     </div>
+    <div class="row">
+        <div class="col-3 offset-9">
+            <select id="categories" class="form-select" aria-label="select a category">
+                {% for category in categories %}
+                <option value="{{ category }}" {% if category == current_category %}selected{% endif %}>{{ category }}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <div class="col-12 my-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <h2 class="me-3">{{ count }}</h2>
+                        <i class="fa-solid fa-mug-hot h2 mt-1 ms-3"></i>
+                    </div>
+                    <p class="text-center text-body-secondary mb-0">Number of drinks</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <h2 class="me-3">{{ min }}</h2>
+                        <i class="fa-solid fa-circle-minus h2 mt-1 ms-3"></i>
+                    </div>
+                    <p class="text-center text-body-secondary mb-0">Lowest amount of {{ current_category }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 pb-3 ">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <h2 class="me-3">{{ max }}</h2>
+                        <i class="fa-solid fa-circle-plus h2 mt-1 ms-3"></i>
+                    </div>
+                    <p class="text-center text-body-secondary mb-0">Highest amount of {{ current_category }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center">
+                        <h2 class="me-3">{{ average|floatformat:0 }}</h2>
+                        <i class="fa-solid fa-circle-info h2 mt-1 ms-3"></i>
+                    </div>
+                    <p class="text-center  mb-0">Average amount of {{ current_category }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 my-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6 px-4 mb-5">
+            <canvas class="shadow rounded-5 p-3" id="beverages-chart"></canvas>
+        </div>
+        <div class="col-12 col-lg-6 px-4 mb-5">
+            <canvas class="shadow rounded-5 p-3" id="nutrients-chart"></canvas>
+        </div>
+    </div>
 </div>
+{{ dataset|json_script:"dataset" }}
+<script type="text/javascript">
+$('#categories').change(function() {
+    let category = $(this).val();
+    let currentUrl = new URL(window.location);
+    currentUrl.searchParams.set("category", category); 
+    window.location.replace(currentUrl);
+})
+new Chart($('#beverages-chart'), {
+    type: 'pie',
+    data: {
+      labels: JSON.parse($('#dataset').text())['beverage_labels'],
+      datasets: [{
+        data: JSON.parse($('#dataset').text())['beverage_data'],
+        backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      plugins: {
+            legend: {
+                position: 'left'
+            },
+            title: {
+                display: true,
+                text: 'Types of Coffee by Category',
+            }
+        }
+    }
+});
+new Chart($('#nutrients-chart'), {
+    type: 'bar',
+    data: {
+      labels: JSON.parse($('#dataset').text())['nutrients_labels'],
+      datasets: [{
+        label: 'Calories',
+        data: JSON.parse($('#dataset').text())['nutrients_data'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+			ticks: {
+				maxRotation: 45,
+				minRotation: 45,
+			}
+		},
+        y: {
+          beginAtZero: true
+        },
+      },
+      plugins: {
+            title: {
+                display: true,
+                text: 'Types of Coffee by Average Calories',
+            }
+        }
+    }
+  });
+</script>
 {% endblock %}

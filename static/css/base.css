@@ -24,3 +24,8 @@ body .hero-image {
 .asteriskField {
     display: none;
 }
+
+#chart {
+    width: auto;
+    height: auto;
+}
