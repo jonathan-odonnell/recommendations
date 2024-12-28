@@ -81,12 +81,13 @@ $('#categories').change(function() {
     currentUrl.searchParams.set("category", category); 
     window.location.replace(currentUrl);
 })
+let dataset = JSON.parse($('#dataset').text())
 new Chart($('#beverages-chart'), {
     type: 'pie',
     data: {
-      labels: JSON.parse($('#dataset').text())['beverage_labels'],
+      labels: dataset['beverage_labels'],
       datasets: [{
-        data: JSON.parse($('#dataset').text())['beverage_data'],
+        data: dataset['beverage_data'],
         backgroundColor: [
             'rgb(255, 99, 132)',
             'rgb(54, 162, 235)',
@@ -110,10 +111,10 @@ new Chart($('#beverages-chart'), {
 new Chart($('#nutrients-chart'), {
     type: 'bar',
     data: {
-      labels: JSON.parse($('#dataset').text())['nutrients_labels'],
+      labels: dataset['nutrients_labels'],
       datasets: [{
-        label: 'Calories',
-        data: JSON.parse($('#dataset').text())['nutrients_data'],
+        label: dataset['category'],
+        data: dataset['nutrients_data'],
         borderWidth: 1
       }]
     },
@@ -133,7 +134,7 @@ new Chart($('#nutrients-chart'), {
       plugins: {
             title: {
                 display: true,
-                text: 'Types of Coffee by Average Calories',
+                text:`Types of Coffee by Average ${dataset['category'].replace(/ *\([^)]*\) */g, '')}`,
             }
         }
     }
