@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Nutrient:
+class Nutrient(models.Model):
     name = models.CharField(max_length=254, null=True, blank=True)
     units = models.CharField(max_length=4, null=True, blank=True)
 
