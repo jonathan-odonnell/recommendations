@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
-from .models import Nutrient, Stat 
-from decimal import Decimal
+from .models import Nutrient, Stat
 
 
 def coffee_stats(request):
