@@ -39,10 +39,15 @@
               <a class="nav-link {% if request.path == url %}active{% endif %}"
                 href="{% url 'coffee_recommendations'%}">Coffee Recommendations</a>
             </li>
-            {% url 'coffee_stats' as url %}
+            {% url 'coffee_nutrients_stats' as url %}
             <li class="nav-item">
               <a class="nav-link {% if request.path == url %}active{% endif %}"
-                href="{% url 'coffee_stats' %}">Statistics</a>
+                href="{% url 'coffee_nutrients_stats' %}">Nutrients Statistics</a>
+            </li>
+            {% url 'coffee_sales_stats' as url %}
+            <li class="nav-item">
+              <a class="nav-link {% if request.path == url %}active{% endif %}"
+                href="{% url 'coffee_sales_stats' %}">Sales Statistics</a>
             </li>
           </ul>
           <span class="navbar-text">

@@ -3,7 +3,7 @@ import pandas as pd
 from .models import Nutrient, Stat
 
 
-def coffee_stats(request):
+def coffee_nutrients_stats(request):
     current_category = 'calories'
 
     if request.GET and 'category' in request.GET:
@@ -29,7 +29,7 @@ def coffee_stats(request):
         'calories_sugar_labels': df['sugar'].to_list(),
         'calories_sugar_data': df['calories'].to_list(),
     }
-    template = 'stats.html'
+    template = 'coffee_nutrients_stats.html'
     context = {
         'dataset': dataset,
         'current_category': category,
@@ -40,3 +40,9 @@ def coffee_stats(request):
         'average': df[current_category].mean(),
         }
     return render(request, template, context)
+
+
+def coffee_sales_stats(request):
+    template = 'coffee_sales_stats.html'
+    context = {}
+    return (request, template, context)

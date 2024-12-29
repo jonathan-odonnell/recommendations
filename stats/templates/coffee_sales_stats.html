@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 my-3 text-center">
+            <h1>Coffee Sales Statistics</h1>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block postloadjs %}
+{{ block.super }}
+{{ dataset|json_script:"dataset" }}
+<script type="text/javascript" src="{% static '/js/script.js' %}"></script>
+{% endblock %}
