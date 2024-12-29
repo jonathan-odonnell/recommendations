@@ -10,7 +10,7 @@
         <div class="col-3 offset-9">
             <select id="categories" class="form-select" aria-label="select a category">
                 {% for category in categories %}
-                <option value="{{ category }}" {% if category == current_category %}selected{% endif %}>{{ category }}</option>
+                <option value="{{ category.name }}" {% if category.name == current_category.name %}selected{% endif %}>{{ category.name }}</option>
                 {% endfor %}
               </select>
         </div>
@@ -32,10 +32,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
-                        <h2 class="me-3">{{ min }}</h2>
+                        <h2 class="me-3">{{ min|floatformat:0 }}</h2>
                         <i class="fa-solid fa-circle-minus h2 mt-1 ms-3"></i>
                     </div>
-                    <p class="text-center text-body-secondary mb-0">Lowest amount of {{ current_category }}</p>
+                    <p class="text-center text-body-secondary mb-0">Lowest amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
                 </div>
             </div>
         </div>
@@ -43,10 +43,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-center">
-                        <h2 class="me-3">{{ max }}</h2>
+                        <h2 class="me-3">{{ max|floatformat:0 }}</h2>
                         <i class="fa-solid fa-circle-plus h2 mt-1 ms-3"></i>
                     </div>
-                    <p class="text-center text-body-secondary mb-0">Highest amount of {{ current_category }}</p>
+                    <p class="text-center text-body-secondary mb-0">Highest amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@
                         <h2 class="me-3">{{ average|floatformat:0 }}</h2>
                         <i class="fa-solid fa-circle-info h2 mt-1 ms-3"></i>
                     </div>
-                    <p class="text-center  mb-0">Average amount of {{ current_category }}</p>
+                    <p class="text-center text-body-secondary mb-0">Average amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
                 </div>
             </div>
         </div>
@@ -76,12 +76,19 @@
 {{ dataset|json_script:"dataset" }}
 <script type="text/javascript">
 $('#categories').change(function() {
-    let category = $(this).val();
+    let category = $(this).val().toLowerCase().replace(' ', '_');
     let currentUrl = new URL(window.location);
     currentUrl.searchParams.set("category", category); 
     window.location.replace(currentUrl);
 })
 let dataset = JSON.parse($('#dataset').text())
+let beveragesChartLabel = function() {
+    if (dataset['unit']) {
+        return `${dataset['category']} (${dataset['unit']})`
+    } else {
+        return `${dataset['category']}`
+    }
+}
 new Chart($('#beverages-chart'), {
     type: 'pie',
     data: {
@@ -113,7 +120,7 @@ new Chart($('#nutrients-chart'), {
     data: {
       labels: dataset['nutrients_labels'],
       datasets: [{
-        label: dataset['category'],
+        label: beveragesChartLabel(),
         data: dataset['nutrients_data'],
         borderWidth: 1
       }]
