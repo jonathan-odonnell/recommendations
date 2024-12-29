@@ -19,15 +19,15 @@ class Stat(models.Model):
     saturated_fat = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     sodium = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     carbohydrates = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    cholestorol = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    cholesterol = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     fibre = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    sugar =models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    sugar = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     protein = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    vitimin_a = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    vitimin_c = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    vitamin_a = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    vitamin_c = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     calcium = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     iron = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     caffeine = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True)
 
     def __str__(self):
-        return self.beverage
+        return self.name
