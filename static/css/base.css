@@ -4,7 +4,7 @@ body .hero-image {
     justify-content: center;
     position: relative;
     height: calc(100vh - 56px);
-    background: url("/media/home_img.jpg") no-repeat center center fixed;
+    background: url("/static/media/home_img.jpg") no-repeat center center fixed;
     background-size: cover;
 }
 
