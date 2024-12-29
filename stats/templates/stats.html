@@ -66,10 +66,16 @@
     </div>
     <div class="row">
         <div class="col-12 col-lg-6 px-4 mb-5">
-            <canvas class="shadow rounded-5 p-3" id="beverages-chart"></canvas>
+            <canvas class="shadow rounded-5 p-3" id="beverage-categories-chart"></canvas>
         </div>
         <div class="col-12 col-lg-6 px-4 mb-5">
             <canvas class="shadow rounded-5 p-3" id="nutrients-chart"></canvas>
+        </div>
+        <div class="col-12 col-lg-6 px-4 mb-5">
+            <canvas class="shadow rounded-5 p-3" id="calories-sugar-chart"></canvas>
+        </div>
+        <div class="col-12 col-lg-6 px-4 mb-5">
+            <canvas class="shadow rounded-5 p-3" id="beverages-chart"></canvas>
         </div>
     </div>
 </div>
@@ -89,17 +95,12 @@ let beveragesChartLabel = function() {
         return `${dataset['category']}`
     }
 }
-new Chart($('#beverages-chart'), {
+new Chart($('#beverage-categories-chart'), {
     type: 'pie',
     data: {
-      labels: dataset['beverage_labels'],
+      labels: dataset['beverage_categories_labels'],
       datasets: [{
-        data: dataset['beverage_data'],
-        backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-        ],
+        data: dataset['beverage_categories_data'],
         hoverOffset: 4
       }]
     },
@@ -110,7 +111,7 @@ new Chart($('#beverages-chart'), {
             },
             title: {
                 display: true,
-                text: 'Types of Coffee by Category',
+                text: 'Beverage Types by Category',
             }
         }
     }
@@ -141,10 +142,69 @@ new Chart($('#nutrients-chart'), {
       plugins: {
             title: {
                 display: true,
-                text:`Types of Coffee by Average ${dataset['category'].replace(/ *\([^)]*\) */g, '')}`,
+                text:`Beverage Types by Average ${dataset['category'].replace(/ *\([^)]*\) */g, '')}`,
             }
         }
     }
   });
+  new Chart($('#beverages-chart'), {
+    type: 'doughnut',
+    data: {
+      labels: dataset['beverages_labels'],
+      datasets: [{
+        data: dataset['beverages_data'],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      plugins: {
+            legend: {
+                position: 'left'
+            },
+            title: {
+                display: true,
+                text: '5 Highest and Lowest Beverage Types',
+            }
+        }
+    }
+});
+new Chart($('#calories-sugar-chart'), {
+    type: 'scatter',
+    data: {
+      labels: dataset['calories_sugar_labels'],
+      datasets: [{
+        data: dataset['calories_sugar_data'],
+        fill: false,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1,
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      plugins: {
+            title: {
+                display: true,
+                text: 'Sugar and Calories for Beverage Types',
+            },
+            legend: {
+                display: false,
+            }
+        },
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: 'Calories',
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Sugar (g)',
+                }
+            }
+        }
+    }
+});
 </script>
 {% endblock %}
