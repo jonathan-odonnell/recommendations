@@ -14,7 +14,7 @@ def coffee_stats(request):
     beverages_value_count = df['category'].value_counts()
     nutrients = df.groupby('category')[current_category].mean()
     nutrients = nutrients.reset_index()
-    categories = Nutrient.objects.all()
+    categories = Nutrient.objects.order_by('id')
     category = Nutrient.objects.get(name__iexact=current_category.replace('_', ' '))
 
     dataset = {
