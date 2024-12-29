@@ -9,8 +9,3 @@
     </div>
 </div>
 {% endblock %}
-{% block postloadjs %}
-{{ block.super }}
-{{ dataset|json_script:"dataset" }}
-<script type="text/javascript" src="{% static '/js/script.js' %}"></script>
-{% endblock %}
