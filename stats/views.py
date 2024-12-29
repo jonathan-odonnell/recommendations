@@ -45,4 +45,4 @@ def coffee_nutrients_stats(request):
 def coffee_sales_stats(request):
     template = 'coffee_sales_stats.html'
     context = {}
-    return (request, template, context)
+    return render(request, template, context)
