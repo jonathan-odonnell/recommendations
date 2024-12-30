@@ -31,18 +31,18 @@ class Stat(models.Model):
 
     def __str__(self):
         return self.name
-    
-    class Sales(models.Model):
-        date = models.DateField(null=True, blank=True)
-        time = models.TimeField(null=True, blank=True)
-        quantity = models.IntegerField(null=True, blank=True)
-        store_id = models.CharField(max_length=254, null=True, blank=True)
-        store_location = models.CharField(max_length=254, null=True, blank=True)	
-        product_id = models.IntegerField(null=True, blank=True)	
-        unit_price = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)	
-        product_category = models.CharField(max_length=254, null=True, blank=True)	
-        product_type = models.CharField(max_length=254, null=True, blank=True)	
-        product_detail = models.CharField(max_length=254, null=True, blank=True)
+
+class Sales(models.Model):
+    date = models.DateField(null=True, blank=True)
+    time = models.TimeField(null=True, blank=True)
+    quantity = models.IntegerField(null=True, blank=True)
+    store_id = models.CharField(max_length=254, null=True, blank=True)
+    store_location = models.CharField(max_length=254, null=True, blank=True)	
+    product_id = models.IntegerField(null=True, blank=True)	
+    unit_price = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)	
+    product_category = models.CharField(max_length=254, null=True, blank=True)	
+    product_type = models.CharField(max_length=254, null=True, blank=True)	
+    product_detail = models.CharField(max_length=254, null=True, blank=True)
 
     def __str__(self):
         return f'{self.store_location} - {self.date} {self.time}'
