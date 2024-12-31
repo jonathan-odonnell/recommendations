@@ -1,7 +1,6 @@
 from django.shortcuts import render
 import pandas as pd
-from .models import Nutrient, Stat
-
+from .models import Nutrient, Stat, Sales
 
 def coffee_nutrients_stats(request):
     current_category = 'calories'
@@ -43,6 +42,7 @@ def coffee_nutrients_stats(request):
 
 
 def coffee_sales_stats(request):
+    sales = Sales.objects.all()
     template = 'coffee_sales_stats.html'
-    context = {}
+    context = {'sales': sales}
     return render(request, template, context)
