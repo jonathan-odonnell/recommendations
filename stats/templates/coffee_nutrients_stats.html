@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3 offset-9">
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3 offset-md-6 offset-lg-8 offset-xl-9">
             <select id="categories" class="form-select" aria-label="select a category">
                 {% for category in categories %}
                 <option value="{{ category.name }}" {% if category.name == current_category.name %}selected{% endif %}>{{ category.name }}</option>
@@ -18,47 +18,55 @@
         <div class="col-12 my-3"></div>
     </div>
     <div class="row">
-        <div class="col-3">
+        <div class="col-6 col-lg-3 mb-3 mb-lg-0">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        <h2 class="me-3">{{ count }}</h2>
-                        <i class="fa-solid fa-mug-hot h2 mt-1 ms-3"></i>
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2 class="mb-0">{{ count }}</h2>
+                        <p class="text-body-secondary mb-0">Number of drinks</p>
                     </div>
-                    <p class="text-center text-body-secondary mb-0">Number of drinks</p>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-mug-hot"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-6 col-lg-3 mb-3 mb-lg-0">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        <h2 class="me-3">{{ min|floatformat:0 }}</h2>
-                        <i class="fa-solid fa-circle-minus h2 mt-1 ms-3"></i>
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2 class="mb-0">{{ min|floatformat:0 }}</h2>
+                        <p class="text-body-secondary mb-0">Lowest amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
                     </div>
-                    <p class="text-center text-body-secondary mb-0">Lowest amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-circle-minus" style="line-height: 1.2;"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-3 pb-3 ">
+        <div class="col-6 col-lg-3 mb-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        <h2 class="me-3">{{ max|floatformat:0 }}</h2>
-                        <i class="fa-solid fa-circle-plus h2 mt-1 ms-3"></i>
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2 class="mb-0">{{ max|floatformat:0 }}</h2>
+                        <p class="text-body-secondary mb-0">Highest amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
                     </div>
-                    <p class="text-center text-body-secondary mb-0">Highest amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-circle-plus" style="line-height: 1.2;"></i>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-3">
+        <div class="col-6 col-lg-3 mb-3">
             <div class="card">
-                <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        <h2 class="me-3">{{ average|floatformat:0 }}</h2>
-                        <i class="fa-solid fa-circle-info h2 mt-1 ms-3"></i>
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2 class="mb-0">{{ average|floatformat:0 }}</h2>
+                        <p class="text-body-secondary mb-0">Average amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
                     </div>
-                    <p class="text-center text-body-secondary mb-0">Average amount of {{ current_category.name }}{% if current_category.units %} ({{ current_category.units }}){% endif %}</p>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-circle-info" style="line-height: 1.2;"></i>
+                    </div>
                 </div>
             </div>
         </div>
