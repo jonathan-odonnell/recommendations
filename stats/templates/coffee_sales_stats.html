@@ -7,5 +7,59 @@
             <h1>Coffee Sales Statistics</h1>
         </div>
     </div>
+    <div class="row mb-3">
+        <div class="col-6 col-lg-3 mb-3 mb-lg-0">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2>£{{ total_sales|floatformat:"1" }} M</h2>
+                        <p class="text-body-secondary text-capitalize mb-0">total sales</p>
+                    </div>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-tag"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 mb-3 mb-lg-0">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2>£{{ average_price|floatformat:"2" }}</h2>
+                        <p class="text-body-secondary text-capitalize mb-0">average price</p>
+                    </div>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-sack-dollar"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2>{{ average_quantity|floatformat:"2" }}</h2>
+                        <p class="text-body-secondary text-capitalize mb-0">Average quantity</p>
+                    </div>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-mug-hot"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3">
+            <div class="card">
+                <div class="card-body d-flex justify-content-between">
+                    <div class="d-block">
+                        <h2>£{{ average_spend|floatformat:"1" }} K</h2>
+                        <p class="text-body-secondary text-capitalize mb-0">Average spend</p>
+                    </div>
+                    <div class="d-block my-auto">
+                        <i class="fa-solid display-5 fa-bag-shopping"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

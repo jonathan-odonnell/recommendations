@@ -42,7 +42,13 @@ def coffee_nutrients_stats(request):
 
 
 def coffee_sales_stats(request):
-    sales = Sales.objects.all()
+    ds = pd.DataFrame(Sales.objects.values())
     template = 'coffee_sales_stats.html'
-    context = {'sales': sales}
+    context = {
+        'sales': ds,
+        'total_sales': ds['unit_price'].sum() * ds['quantity'].sum() / 1000000,
+        'average_price': ds['unit_price'].mean(),
+        'average_quantity': ds['quantity'].mean(),
+        'average_spend': ds['unit_price'].mean() * ds['quantity'].sum() / 1000,
+    }
     return render(request, template, context)
