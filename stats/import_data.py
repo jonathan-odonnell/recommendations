@@ -17,6 +17,7 @@ def import_data():
         s = Sales.objects.create(
             date = datetime.strptime(row['date'], "%m/%d/%y").date(),
             time = datetime.strptime(row['time'], "%H:%M:%S").time(),
+            quantity = row['quantity'],
             store_id = row['store_id'],
             store_location = row['store_location'],	
             product_id = row['product_id'],	
