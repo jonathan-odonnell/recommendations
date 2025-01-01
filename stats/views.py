@@ -43,12 +43,23 @@ def coffee_nutrients_stats(request):
 
 def coffee_sales_stats(request):
     ds = pd.DataFrame(Sales.objects.values())
+    ds['total'] = ds['unit_price'] * ds['quantity']
+    store_locations = ds.groupby('store_location')['total'].sum()
+    product_type = ds.groupby('product_type')['total'].sum()
+    product_type = product_type.reset_index().sort_values('total', ascending=False).head(5)
+    dataset = {
+        'sales_labels': store_locations.index.to_list(),
+        'sales_data': store_locations.to_list(),
+        'product_type_labels': product_type['product_type'].to_list(),
+        'product_type_data': product_type['total'].to_list()
+    }
     template = 'coffee_sales_stats.html'
     context = {
         'sales': ds,
-        'total_sales': ds['unit_price'].sum() * ds['quantity'].sum() / 1000000,
+        'total_sales': ds['total'].sum() / 1000,
         'average_price': ds['unit_price'].mean(),
         'average_quantity': ds['quantity'].mean(),
-        'average_spend': ds['unit_price'].mean() * ds['quantity'].sum() / 1000,
+        'average_spend': ds['unit_price'].sum() / ds['quantity'].sum(),
+        'dataset': dataset,
     }
     return render(request, template, context)
