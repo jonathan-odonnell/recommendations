@@ -74,14 +74,36 @@
 {{ block.super }}
 {{ dataset|json_script:"dataset" }}
 <script type="text/javascript">
-    let dataset = JSON.parse($('#dataset').text())
+    let dataset = JSON.parse($('#dataset').text());
     new Chart($('#sales-chart'), {
-    type: 'bar',
+    type: 'pie',
     data: {
       labels: dataset['sales_labels'],
       datasets: [{
         label: 'Sales (£)',
         data: dataset['sales_data'],
+        hoverOffset: 4
+      }]
+    },
+    options: {
+      plugins: {
+            legend: {
+                position: 'left'
+            },
+            title: {
+                display: true,
+                text: 'Beverage Sales by Location',
+            }
+        }
+    }
+});
+    new Chart($('#product-type-chart'), {
+    type: 'bar',
+    data: {
+      labels: dataset['product_type_labels'],
+      datasets: [{
+        label: 'Sales (£)',
+        data: dataset['product_type_data'],
         borderWidth: 1
       }]
     },
@@ -94,44 +116,14 @@
 				minRotation: 45,
 			}
 		},
-        y: {
-            min: 5000,
-            max: 8000,
-            ticks: {
-              // forces step size to be 50 units
-              stepSize: 500
-            }
-        }
       },
       plugins: {
-            title: {
-                display: true,
-                text: 'Beverage Sales by Location',
-            }
-        }
-    }
-  });
-  new Chart($('#product-type-chart'), {
-    type: 'doughnut',
-    data: {
-      labels: dataset['product_type_labels'],
-      datasets: [{
-        label: 'Sales (£)',
-        data: dataset['product_type_data'],
-        hoverOffset: 4
-      }]
-    },
-    options: {
-      plugins: {
-            legend: {
-                position: 'left'
-            },
             title: {
                 display: true,
                 text: 'Highest Sales by Product Type',
             }
         }
     }
-});
+  });
 </script>
 {% endblock %}
