@@ -46,7 +46,7 @@ def coffee_sales_stats(request):
     ds['total'] = ds['unit_price'] * ds['quantity']
     store_locations = ds.groupby('store_location')['total'].sum()
     product_type = ds.groupby('product_type')['total'].sum()
-    product_type = product_type.reset_index().sort_values('total', ascending=False).head(5)
+    product_type = product_type.reset_index().sort_values('total', ascending=False).head(10)
     dataset = {
         'sales_labels': store_locations.index.to_list(),
         'sales_data': store_locations.to_list(),
