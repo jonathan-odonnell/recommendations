@@ -1,1 +1,2 @@
 # recommendations
+This project uses the Starbucks dataset by Henry Shan under the [Community Data License Agreement - Sharing - Version 1.0](https://cdla.dev/sharing-1-0/) license. It also uses the Coffee Shop Sales dataset by Kerem Karayağız reproduced under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license. In addition, it uses the Coffee Quality with Locations of Origin dataset by RealDealAdamP is also used under the [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license.
